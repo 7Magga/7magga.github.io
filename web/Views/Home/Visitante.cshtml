@@ -1,0 +1,227 @@
+﻿@model PortalMDA.WEB.Models.VisitanteModels
+
+@{
+    ViewData["Title"] = "Visitante";
+}
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png">
+  <link rel="icon" type="image/png" href="../assets/img/favicon.png">
+  <title>
+    Portal MDA - Cadastro
+  </title>
+  <!--     Fonts and icons     -->
+  <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900|Roboto+Slab:400,700" />
+  <!-- Nucleo Icons -->
+  <link href="../assets/css/nucleo-icons.css" rel="stylesheet" />
+  <link href="../assets/css/nucleo-svg.css" rel="stylesheet" />
+  <!-- Font Awesome Icons -->
+  <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
+  <!-- Material Icons -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
+  <!-- CSS Files -->
+    @*<link id="pagestyle" href="../assets/css/material-dashboard.css?v=3.0.0" rel="stylesheet" />*@
+  <link href="../assets/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="../assets/css/now-ui-kit.css?v=1.2.0" rel="stylesheet" />
+</head>
+<style>
+    label{
+        color:gray;
+    }
+    body{
+        mask bg-gradient-dark opacity-6;
+    }
+</style>
+
+<script>
+    setTimeout(function() {
+    $('#alerta').fadeOut('fast');
+}, 4000); 
+</script>
+
+<span class="mask bg-gradient-dark opacity-6"></span>
+<body class="bg-gray-200" style="background-image: url('https://images.unsplash.com/photo-1550633600-4cfc6929e592?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80');background-repeat: no-repeat; background-size: cover;">
+  <main class="main-content">
+    <div class="page-header align-items-start min-vh-100">
+      <div class="container mx-auto">
+        <div class="row mb-4">
+            <!-- Navbar -->
+            <nav class="navbar navbar-expand-lg border-radius-xl top-0 z-index-3 shadow position-absolute my-3 py-2 start-0 end-0 mx-4" style="background-color:#766653;backdrop-filter: saturate(200%) blur(30px)">
+                  <div class="container-fluid ps-2 pe-0">
+                    <a class="navbar-brand font-weight-bolder ms-lg-0 ms-3" style="color:white;" href="../Home/Index">
+                      Portal MDA
+                    </a>
+                  </div>
+            </nav>
+            <!-- End Navbar -->
+        </div>
+        <div class="row mt-8">
+          <div class="col-lg-4 col-md-8 col-12 mx-auto">
+            <div class="card z-index-0 fadeIn3 fadeInBottom">
+              <div class="card-header mt-5 p-0 position-relative mt-n4 mx-3 z-index-2">
+                <div class="border-radius-lg py-3 pe-1" style="background-color:#2E3531">
+                  <h4 class="text-white font-weight-bolder text-center mt-2 mb-0">Visitante</h4>
+                </div>
+                                @if (!string.IsNullOrEmpty(ViewBag.Erro))
+                                {
+                        <p style="color:red;font-weight:600;">
+                                        @ViewBag.Erro.ToString()
+                        </p>
+                                }
+              </div>
+              <div class="card-body">
+                                @*TESTE*@
+                 <form asp-action="VisitantePost" method="post">
+                  <div class="row">
+                    <div class="col-md-6 pr-1">
+                      <div class="form-group">
+                                                @*<input type="text" class="form-control" placeholder="Nome...">*@
+                        <input asp-for="Nome" class="form-control" placeholder="Nome..."/>
+                        <span asp-validation-for="Nome" class="text-danger"></span>
+                      </div>
+                    </div>
+                    <div class="col-md-6 pl-1">
+                      <div class="form-group">
+                                                @*<input type="email" class="form-control" placeholder="Sobrenome">*@
+                        <input asp-for="Sobrenome" class="form-control" placeholder="Sobrenome..."/>
+                        <span asp-validation-for="Sobrenome" class="text-danger"></span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-6 pr-1">
+                      <div class="form-group">
+                                                @*<input type="text" class="form-control" placeholder="Idade">*@
+                        <input asp-for="Idade" class="form-control" placeholder="Idade"/>
+                        <span asp-validation-for="Idade" class="text-danger"></span>
+                      </div>
+                    </div>
+                    <div class="col-md-6 pl-1">
+                      <div class="form-group">
+                                                @*<input type="text" class="form-control" placeholder="(11)99999-9999" >*@
+                        <input asp-for="NmrTelefone" class="form-control" placeholder="Numero Tel" />
+                      <span asp-validation-for="NmrTelefone" class="text-danger"></span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="form-group">
+                                                @*<input type="text" class="form-control" placeholder="Av.Arquiteto vilanova artigas">*@
+                        <input asp-for="Endereco" class="form-control" placeholder="Endereco"/>
+                      <span asp-validation-for="Endereco" class="text-danger"></span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                      <div class="col-md-6 pr-1">
+                          <div class="form-group">
+                              @*<input type="text" class="form-control" placeholder="Teotonio vilela">*@
+                              <input asp-for="Bairro" class="form-control" placeholder="Bairro" />
+                              <span asp-validation-for="Bairro" class="text-danger"></span>
+                          </div>
+                      </div>
+                      <div class="col-md-6 pl-1">
+                          <div class="form-group">
+                              @*<input type="text" class="form-control" placeholder="Numero">*@
+                              <input asp-for="NmrResidencia" class="form-control" placeholder="Numero" />
+                              <span asp-validation-for="NmrResidencia" class="text-danger"></span>
+                          </div>
+                      </div>
+                      <div class="col-md-6 pl-1">
+                          <div class="form-group">
+                              @*<input type="checkbox" class="form-control">*@
+                              <label>
+                                  <input asp-for="BatizadoStr" type="checkbox" class="form-check-input" />
+                                  Batizado
+                              </label>
+                              <span asp-validation-for="BatizadoStr" class="text-danger"></span>
+                          </div>
+                      </div>
+                      <div class="col-md-6 pl-1">
+                          <div class="form-group">
+                              @*<input type="checkbox" class="form-control">*@
+                              <label>
+                                  <input asp-for="WhatsAppStr" type="checkbox" class="form-check-input" style="color:black">
+                                  WhatsApp
+                              </label>
+                              <span asp-validation-for="WhatsAppStr" class="text-danger"></span>
+                          </div>
+                      </div>
+                      <div class="col-md-6 pl-1">
+                          <div class="form-group">
+                              @*<input type="checkbox" class="form-control">*@
+                              <label>
+                                  <input asp-for="msc" type="checkbox" class="form-check-input" />
+                                  Masculino
+                              </label>
+                              <span asp-validation-for="msc" class="text-danger"></span>
+                          </div>
+                      </div>
+                      <div class="col-md-6 pl-1">
+                          <div class="form-group">
+                              @*<input type="checkbox" class="form-control">*@
+                              <label>
+                                  <input asp-for="fem" type="checkbox" class="form-check-input" style="color:black">
+                                  Feminino
+                              </label>
+                              <span asp-validation-for="fem" class="text-danger"></span>
+                          </div>
+                      </div>
+                      <div class="col-md-12 pl-1">
+                          <div class="form-group">
+                              @*<input type="checkbox" class="form-control">*@
+                              <label>
+                                  <input asp-for="VisitaStr" type="checkbox" class="form-check-input" style="color:black">
+                                  Aceita Visita?
+                              </label>
+                              <span asp-validation-for="VisitaStr" class="text-danger"></span>
+                          </div>
+                      </div>
+
+                      <span class="bootstrap-switch-handle-off bootstrap-switch-default" style="width: 50px;"></span>
+                      <div class="text-center">
+                          <input type="submit" class="btn bg-gradient-prim w-100 my-4 mb-2" type="submit"></input>
+                      </div>
+                  </div>
+                </form>
+                                @if (!string.IsNullOrEmpty(@ViewBag.Sucess))
+                                {
+                                    <div class="alert alert-success alerta" id="alerta" role="alert" style="color:white;font-weight: bold;">
+                                        @ViewBag.Sucess.ToString()
+                                    </div>
+                                }
+                                @if (!string.IsNullOrEmpty(@ViewBag.Erro))
+                                {
+                                    <div class="alert alert-danger alerta" id="alerta" role="alert" style="color:white;font-weight: bold;">
+                                        @ViewBag.Erro.ToString()
+                                    </div>
+                                }
+               </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="footer position-absolute">
+        <div class="container">
+          <div class="row align-items-center justify-content-lg-between">
+            <div class="col-12 col-md-6 my-auto">
+              <div class="copyright text-center text-sm text-white text-lg-start">
+                criado por <a class="font-weight-bold text-white" >MAGGA</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </footer>
+    </div>
+  </main>
+</body>
+</html>
+
+@section Scripts {
+    @{
+    await Html.RenderPartialAsync("_ValidationScriptsPartial");
+}
+}
