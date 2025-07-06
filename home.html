@@ -1,0 +1,403 @@
+<!-- <!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Nomes Animados Sem Sobreposição</title>
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        height: 100vh;
+        background: linear-gradient(-45deg, #1e3c72, #2a5298, #0f2027, #203a43);
+        background-size: 400% 400%;
+        animation: backgroundMove 20s ease infinite;
+        font-family: "Segoe UI", sans-serif;
+        position: relative;
+      }
+
+      @keyframes backgroundMove {
+        0% {
+          background-position: 0% 50%;
+        }
+        50% {
+          background-position: 100% 50%;
+        }
+        100% {
+          background-position: 0% 50%;
+        }
+      }
+
+      .name {
+        position: absolute;
+        color: white;
+        font-size: 1.5rem;
+        font-weight: bold;
+        opacity: 0;
+        animation: fadeInOut 8s ease-in-out forwards;
+        white-space: nowrap;
+        pointer-events: none;
+        user-select: none;
+        padding: 2px 5px;
+        border-radius: 4px;
+      }
+
+      @keyframes fadeInOut {
+        0% {
+          opacity: 0;
+          transform: scale(0.8);
+        }
+        10% {
+          opacity: 1;
+          transform: scale(1);
+        }
+        90% {
+          opacity: 1;
+          transform: scale(1);
+        }
+        100% {
+          opacity: 0;
+          transform: scale(1.2);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <script>
+      const names = [
+        "Matheus",
+        "Gabryel",
+        "Ana",
+        "Beatriz",
+        "Carlos",
+        "Daniela",
+        "Eduardo",
+        "Fernanda",
+        "Gabriel",
+        "Helena",
+        "Isabela",
+        "João",
+        "Karina",
+        "Lucas",
+        "Mariana",
+        "Nicolas",
+        "Olivia",
+        "Pedro",
+        "Quintino",
+        "Rafael",
+        "Sofia",
+        "Tiago",
+        "Valentina",
+        "Wesley",
+        "Yasmin",
+        "Zeca",
+      ];
+
+      // Para armazenar as posições e tamanhos atuais dos nomes visíveis
+      // Cada item será {top, left, width, height} em pixels
+      let activeRects = [];
+
+      // Função que verifica se dois retângulos se sobrepõem
+      function isOverlapping(r1, r2) {
+        return !(
+          r1.left + r1.width < r2.left ||
+          r2.left + r2.width < r1.left ||
+          r1.top + r1.height < r2.top ||
+          r2.top + r2.height < r1.top
+        );
+      }
+
+      // Tenta gerar uma posição para o novo nome sem sobreposição
+      function generatePosition(nameDiv) {
+        const maxAttempts = 20;
+        const padding = 5; // espaço extra para evitar proximidade
+        const bodyRect = document.body.getBoundingClientRect();
+
+        for (let attempt = 0; attempt < maxAttempts; attempt++) {
+          // posições aleatórias em pixels
+          const left =
+            Math.random() * (bodyRect.width - nameDiv.offsetWidth - 20) + 10;
+          const top =
+            Math.random() * (bodyRect.height - nameDiv.offsetHeight - 20) + 10;
+
+          const newRect = {
+            left: left - padding,
+            top: top - padding,
+            width: nameDiv.offsetWidth + padding * 2,
+            height: nameDiv.offsetHeight + padding * 2,
+          };
+
+          // Verifica se sobrepõe algum dos ativos
+          let overlap = activeRects.some((rect) =>
+            isOverlapping(rect, newRect)
+          );
+
+          if (!overlap) {
+            // posição boa
+            return { left, top };
+          }
+        }
+
+        // Se não achar posição sem sobreposição, retorna null
+        return null;
+      }
+
+      function createNames(count) {
+        const bodyRect = document.body.getBoundingClientRect();
+
+        for (let i = 0; i < count; i++) {
+          const nameDiv = document.createElement("div");
+          nameDiv.className = "name";
+          nameDiv.textContent = names[Math.floor(Math.random() * names.length)];
+
+          // Inserir temporariamente para obter dimensões
+          nameDiv.style.visibility = "hidden";
+          nameDiv.style.top = "0px";
+          nameDiv.style.left = "0px";
+          document.body.appendChild(nameDiv);
+
+          // Gerar posição válida
+          const pos = generatePosition(nameDiv);
+
+          if (pos) {
+            nameDiv.style.top = pos.top + "px";
+            nameDiv.style.left = pos.left + "px";
+            nameDiv.style.visibility = "visible";
+
+            // Guardar retângulo para checagem futura
+            activeRects.push({
+              left: pos.left,
+              top: pos.top,
+              width: nameDiv.offsetWidth,
+              height: nameDiv.offsetHeight,
+            });
+
+            // Remover após animação e limpar do array
+            setTimeout(() => {
+              nameDiv.remove();
+              // Remover retângulo correspondente
+              activeRects = activeRects.filter(
+                (rect) => rect.left !== pos.left || rect.top !== pos.top
+              );
+            }, 8000);
+          } else {
+            // Não encontrou posição sem sobreposição: remove o elemento temporário
+            nameDiv.remove();
+          }
+        }
+      }
+
+      setInterval(() => {
+        createNames(20); // cria 5 nomes novos a cada 2.5s
+      }, 2500);
+
+      createNames(10); // já cria 5 no início
+    </script>
+  </body>
+</html> -->
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Nomes Animados Sem Sobreposição</title>
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        height: 100vh;
+        background: linear-gradient(-45deg, #1e3c72, #2a5298, #0f2027, #203a43);
+        background-size: 400% 400%;
+        animation: backgroundMove 20s ease infinite;
+        font-family: "Segoe UI", sans-serif;
+        position: relative;
+      }
+
+      @keyframes backgroundMove {
+        0% {
+          background-position: 0% 50%;
+        }
+        50% {
+          background-position: 100% 50%;
+        }
+        100% {
+          background-position: 0% 50%;
+        }
+      }
+
+      .name {
+        position: absolute;
+        color: white;
+        font-size: 1.5rem;
+        font-weight: bold;
+        opacity: 0;
+        animation: fadeInOut 8s ease-in-out forwards;
+        white-space: nowrap;
+        pointer-events: none;
+        user-select: none;
+        padding: 2px 5px;
+        border-radius: 4px;
+      }
+
+      @keyframes fadeInOut {
+        0% {
+          opacity: 0;
+          transform: scale(0.8);
+        }
+        10% {
+          opacity: 1;
+          transform: scale(1);
+        }
+        90% {
+          opacity: 1;
+          transform: scale(1);
+        }
+        100% {
+          opacity: 0;
+          transform: scale(1.2);
+        }
+      }
+
+      /* Estilo do input file para ficar visível */
+      #fileInput {
+        position: fixed;
+        top: 10px;
+        left: 10px;
+        z-index: 1000;
+        background: rgba(255, 255, 255, 0.8);
+        padding: 8px 12px;
+        border-radius: 6px;
+        font-weight: bold;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Input para carregar arquivo txt -->
+    <input type="file" id="fileInput" accept=".txt" />
+
+    <script>
+      let names = [];
+      let activeRects = [];
+      let intervalId = null;
+
+      function isOverlapping(r1, r2) {
+        return !(
+          r1.left + r1.width < r2.left ||
+          r2.left + r2.width < r1.left ||
+          r1.top + r1.height < r2.top ||
+          r2.top + r2.height < r1.top
+        );
+      }
+
+      function generatePosition(nameDiv) {
+        const maxAttempts = 50;
+        const padding = 5;
+        const bodyRect = document.body.getBoundingClientRect();
+
+        for (let attempt = 0; attempt < maxAttempts; attempt++) {
+          const left =
+            Math.random() * (bodyRect.width - nameDiv.offsetWidth - 20) + 10;
+          const top =
+            Math.random() * (bodyRect.height - nameDiv.offsetHeight - 20) + 10;
+
+          const newRect = {
+            left: left - padding,
+            top: top - padding,
+            width: nameDiv.offsetWidth + padding * 2,
+            height: nameDiv.offsetHeight + padding * 2,
+          };
+
+          let overlap = activeRects.some((rect) =>
+            isOverlapping(rect, newRect)
+          );
+
+          if (!overlap) {
+            return { left, top };
+          }
+        }
+
+        return null;
+      }
+
+      function createNames(count) {
+        const bodyRect = document.body.getBoundingClientRect();
+
+        for (let i = 0; i < count; i++) {
+          if (names.length === 0) return; // sem nomes, não cria
+
+          const nameDiv = document.createElement("div");
+          nameDiv.className = "name";
+          nameDiv.textContent = names[Math.floor(Math.random() * names.length)];
+
+          nameDiv.style.visibility = "hidden";
+          nameDiv.style.top = "0px";
+          nameDiv.style.left = "0px";
+          document.body.appendChild(nameDiv);
+
+          const pos = generatePosition(nameDiv);
+
+          if (pos) {
+            nameDiv.style.top = pos.top + "px";
+            nameDiv.style.left = pos.left + "px";
+            nameDiv.style.visibility = "visible";
+
+            activeRects.push({
+              left: pos.left,
+              top: pos.top,
+              width: nameDiv.offsetWidth,
+              height: nameDiv.offsetHeight,
+            });
+
+            setTimeout(() => {
+              nameDiv.remove();
+              activeRects = activeRects.filter(
+                (rect) => rect.left !== pos.left || rect.top !== pos.top
+              );
+            }, 8000);
+          } else {
+            nameDiv.remove();
+          }
+        }
+      }
+
+      // Função para começar o intervalo de criação de nomes
+      function startAnimation() {
+        if (intervalId) clearInterval(intervalId);
+        createNames(20);
+        intervalId = setInterval(() => {
+          createNames(20);
+        }, 2500);
+      }
+
+      // Ler arquivo txt carregado pelo usuário
+      document.getElementById("fileInput").addEventListener("change", (e) => {
+        const file = e.target.files[0];
+        if (!file) return;
+
+        const reader = new FileReader();
+        reader.onload = function (event) {
+          const text = event.target.result;
+          // Quebra por linha e remove linhas vazias
+          names = text
+            .split(/\r?\n/)
+            .map((line) => line.trim())
+            .filter((line) => line.length > 0);
+
+          if (names.length === 0) {
+            alert("Arquivo vazio ou inválido.");
+            return;
+          }
+
+          startAnimation();
+          // Esconder input após carregar arquivo para limpar tela
+          document.getElementById("fileInput").style.display = "none";
+        };
+        reader.readAsText(file);
+      });
+    </script>
+  </body>
+</html>
